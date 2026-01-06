@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-21E7ZCSDE3"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-21E7ZCSDE3');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceTracker - Personal Finance Manager</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+
+<body class="dark-mode">
+
+    <!-- SIDEBAR (left column) -->
+    <aside class="sidebar">
+        <h1>TrackerPro</h1>
+        <nav>
+            <button class="nav-btn active" data-section="dashboard">
+                <span class="icon">📊</span> Dashboard
+            </button>
+            <button class="nav-btn" data-section="add-transaction">
+                <span class="icon">➕</span> Add Entry
+            </button>
+            <button class="nav-btn" data-section="analytics">
+                <span class="icon">📈</span> Insights
+            </button>
+            <button class="nav-btn" data-section="settings">
+                <span class="icon">⚙️</span> Settings
+            </button>
+        </nav>
+    </aside>
+
+    <!-- RIGHT SIDE APP -->
+    <div class="app-container">
+
+        <!-- TOP HEADER -->
+        <header class="top-header">
+            <div class="header-stats">
+                <div class="stat-pill">
+                    <span class="stat-label">Today</span>
+                    <span class="stat-value" id="today-spending">$0</span>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">This Week</span>
+                    <span class="stat-value" id="week-spending">$0</span>
+                </div>
+            </div>
+            <div class="user-profile">
+                <button class="icon-btn" id="theme-toggle-header" title="Toggle theme">🌙</button>
+                <div class="profile-avatar">U</div>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <div class="stats-grid">
+
+                    <div class="card balance-card">
+                        <div class="card-header">
+                            <h3>Total Portfolio Balance</h3>
+                            <span class="trend-badge positive" id="balance-trend">+12.5%</span>
+                        </div>
+                        <span id="total-balance" class="big-number">$0.00</span>
+                        <div class="balance-chart-mini" id="mini-chart">
+                            <div class="spark-line"></div>
+                        </div>
+                    </div>
+
+                    <div class="card income-card">
+                        <div class="card-header">
+                            <h3>Monthly Revenue</h3>
+                            <span class="card-icon">📈</span>
+                        </div>
+                        <p id="total-income" class="card-value">$0.00</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill income-progress" id="income-progress"></div>
+                        </div>
+                        <span class="progress-label" id="income-label">0% of goal</span>
+                    </div>
+
+                    <div class="card expense-card">
+                        <div class="card-header">
+                            <h3>Total Outflow</h3>
+                            <span class="card-icon">📉</span>
+                        </div>
+                        <p id="total-expenses" class="card-value">$0.00</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill expense-progress" id="expense-progress"></div>
+                        </div>
+                        <span class="progress-label" id="expense-label">0% of budget</span>
+                    </div>
+                </div>
+
+                <div class="recent-transactions card">
+                    <div class="section-header">
+                        <h3>Recent Transactions</h3>
+                        <button class="btn-secondary" id="clear-all-btn">Clear All</button>
+                    </div>
+
+                    <table id="transactions-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th>Type</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactions-body"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Add Transaction -->
+            <section id="add-transaction" class="content-section">
+                <div class="card form-card">
+                    <h3>Add New Transaction</h3>
+                    <form id="transaction-form">
+                        <div class="form-group">
+                            <label>Amount</label>
+                            <input type="number" id="amount" step="0.01" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select id="type">
+                                <option value="income">Income</option>
+                                <option value="expense">Expense</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="category">
+                                <option>Salary</option>
+                                <option>Food</option>
+                                <option>Transport</option>
+                                <option>Entertainment</option>
+                                <option>Utilities</option>
+                                <option>Shopping</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" id="date" required>
+                        </div>
+
+                        <button class="submit-btn">Save Transaction</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Analytics -->
+            <section id="analytics" class="content-section">
+                <div class="card chart-card">
+                    <div class="section-header">
+                        <h3>Spending by Category</h3>
+                        <div class="chart-controls">
+                            <button class="chart-toggle active">Bar</button>
+                            <button class="chart-toggle">List</button>
+                        </div>
+                    </div>
+                    <div id="category-chart" class="chart-container"></div>
+                </div>
+
+                <div class="card summary-card">
+                    <h3>Category Breakdown</h3>
+                    <div id="monthly-summary-list" class="summary-list"></div>
+                </div>
+            </section>
+
+            <!-- Settings -->
+            <section id="settings" class="content-section">
+                <div class="card settings-card">
+                    <h3>Preferences</h3>
+
+                    <div class="setting-item">
+                        <label>Currency</label>
+                        <select id="currency-selector">
+                            <option value="$">USD ($)</option>
+                            <option value="€">EUR (€)</option>
+                            <option value="£">GBP (£)</option>
+                            <option value="¥">JPY (¥)</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-item">
+                        <label>Theme</label>
+                        <button id="theme-toggle" class="toggle-btn">Switch to Light Mode</button>
+                    </div>
+
+                    <div class="setting-item">
+                        <label>Monthly Budget</label>
+                        <input type="number" id="monthly-budget">
+                    </div>
+
+                    <div class="setting-item">
+                        <label>Income Goal</label>
+                        <input type="number" id="income-goal">
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
